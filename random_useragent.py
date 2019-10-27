@@ -44,6 +44,8 @@ class RandomUserAgentMiddleware(UserAgentMiddleware):
         return obj
 
     def process_request(self, request, spider):
+        if request.headers.get('User-Agent'):
+            return
         user_agent = random.choice(self.user_agent_list)
         if user_agent:
             request.headers.setdefault('User-Agent', user_agent)
